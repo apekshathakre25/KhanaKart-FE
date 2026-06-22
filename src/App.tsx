@@ -1,19 +1,31 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
-import { Toaster } from "react-hot-toast";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import Home from './pages/Home';
+import { Toaster } from 'react-hot-toast';
+import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
+import SelectedRole from './pages/SelectedRole';
+import Navbar from './components/Navbar';
+import Account from './pages/Account';
 
 const App = () => {
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Home />} />
-        </Routes>
-        <Toaster />
-      </BrowserRouter>
-    </div>
+          <Route path="/select-role" element={<SelectedRole />} />
+          <Route path="/account" element={<Account />} />
+        </Route>
+
+        <Route element={<PublicRoute />}>
+          <Route path="/login" element={<Login />} />
+        </Route>
+      </Routes>
+
+      <Toaster />
+    </BrowserRouter>
   );
 };
 
